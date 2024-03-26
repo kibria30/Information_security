@@ -65,7 +65,6 @@ def encrypt(plaintext, roundKeys):
     state = []
     for i in range(len(blocksOfText)):
         state = blocksOfText[i]
-        print("STATE",state)
         #initial round
         state = addRoundKey(state, roundKeys[0])
         

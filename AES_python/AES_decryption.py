@@ -41,9 +41,7 @@ def inv_mixColumns(state):
 def decrypt(cipher, roundKeys):
     cnt = 0
     loop =  len(cipher)//16
-    print("len: %d, loop: %d", len(cipher), loop)
     blocksOfText = [[None]*16 for _ in range(loop)]
-    
     for i in range(loop):
         if cnt == len(cipher):
             break
@@ -52,17 +50,11 @@ def decrypt(cipher, roundKeys):
                 break
             blocksOfText[i][j] = cipher[cnt]
             cnt += 1
-    
-    print("blocked: ", blocksOfText)
-
-
-
 
     decrypted = []
     state = []
     for i in range(len(blocksOfText)):
         state = blocksOfText[i]
-        print("STATE",state)
         #initial round
         state = addRoundKey(state, roundKeys[10])
         
