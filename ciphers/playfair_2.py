@@ -40,13 +40,12 @@ def encrypt(splittedText, Matrix):
     for x in splittedText:
         row0, col0 = search(x[0], Matrix)
         row1, col1 = search(x[1], Matrix)
-        print(type(row0))
         print(row0, col0)
         print(row1, col1)
-        if(row0 == row1):
-            encrypted.append(Matrix[row0][col0+1])+Matrix[row1][col1+1])
-        elif(col0 == col1):
-            encrypted.append(Matrix[row0+1][col0]+Matrix[row1+1][col1])
+        # if(row0 == row1):
+        #     encrypted.append(Matrix[row0, col0+1]+Matrix[row1, col1+1])
+        # elif(col0==col1):
+        #     encrypted.append(Matrix[row0+1, col0]+Matrix[row1+1, col1])
 
     return encrypted
            

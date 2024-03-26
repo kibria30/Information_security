@@ -15,7 +15,9 @@ for i in range(11):
 
 cipher = ""
 def AESencryption():
-    plaintext = input("Enter plaintext: ")
+    file_plain = open("AES_python\plainText.txt", "r")
+    plaintext = file_plain.read()
+    file_plain.close()
     print("Len of plaintext : ", len(plaintext))
     plaintext_num = [ord(c) for c in plaintext]
 
@@ -24,15 +26,25 @@ def AESencryption():
     cipher_list = [chr(num)  for num in cipher_num]
     cipher = "".join(cipher_list)
     print("cipher is: ",cipher)
+    file_cipher = open("AES_python\cipherText.txt", "w", encoding="utf-8")
+    file_cipher.write(cipher)
+    file_cipher.close()
     
 def AESdecryption():
-    # cipher = input("Enter ciphertext: ")
+    file_cipher = open("AES_python\cipherText.txt", "r", encoding="utf-8")
+    cipher = file_cipher.read()
+    file_cipher.close()
+    print(cipher)
     cipher_num = [ord(c) for c in cipher]
+    print(cipher_num)
     plaintext_num = decrypt(cipher_num, roundKeys)
     print(plaintext_num)
-    # plaintext = [chr(n) for n in plaintext_num]
-    # plaintext = "".join()
-    # print(plaintext)
+    plaintext_list = [chr(n) for n in plaintext_num]
+    plaintext = "".join(plaintext_list).strip()
+    print(plaintext)
+    file_decrypted = open("AES_python\decrypted.txt", "w", encoding="utf-8")
+    file_decrypted.write(plaintext)
+    file_decrypted.close()
 
 def main():
     choice = 1
