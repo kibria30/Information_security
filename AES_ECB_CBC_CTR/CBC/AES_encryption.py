@@ -48,6 +48,11 @@ def encrypt(plaintext, roundKeys):
     loop = math.ceil((len(plaintext))/16)
     blocksOfText = [[None]*16 for _ in range(loop)]
     
+    file_iv = open("IV.txt", 'r')
+    IV = file_iv.read()
+    file_iv.close()
+    current_V = [ord(ch)  for ch in IV]
+
     for i in range(loop):
         if cnt == len(plaintext):
             break
@@ -77,6 +82,8 @@ def encrypt(plaintext, roundKeys):
         state = subByteShiftRows(state)
         state = addRoundKey(state, roundKeys[10])
         
+        state = [state[j]^current_V[j] for j in range(16)]
+        current_V = state
         cipher += state
     
     return cipher        

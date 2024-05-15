@@ -43,28 +43,33 @@ def addRoundKey(state, roundKey):
     return tmp
         
 
-def encrypt(plaintext, roundKeys):
+def decrypt(cipher, roundKeys):
     cnt = 0
-    loop = math.ceil((len(plaintext))/16)
+    loop = math.ceil((len(cipher))/16)
     blocksOfText = [[None]*16 for _ in range(loop)]
     
+    file_iv = open("IV.txt", 'r')
+    IV = file_iv.read()
+    file_iv.close()
+    current_V = [ord(ch)  for ch in IV]
+
     for i in range(loop):
-        if cnt == len(plaintext):
+        if cnt == len(cipher):
             break
         for j in range(16):
-            if cnt == len(plaintext):
+            if cnt == len(cipher):
                 break
-            blocksOfText[i][j] = plaintext[cnt]
+            blocksOfText[i][j] = cipher[cnt]
             cnt += 1
 
     for i in range(16):
         if(blocksOfText[loop-1][i] == None):
             blocksOfText[loop-1][i] = ord(' ')    #padding with whitespace
 
-    cipher = []
+    decrypted = []
     state = []
     for i in range(len(blocksOfText)):
-        state = blocksOfText[i]
+        state = current_V #blocksOfText[i]
         #initial round
         state = addRoundKey(state, roundKeys[0])
         
@@ -77,6 +82,8 @@ def encrypt(plaintext, roundKeys):
         state = subByteShiftRows(state)
         state = addRoundKey(state, roundKeys[10])
         
-        cipher += state
+        state = [state[j]^blocksOfText[i][j] for j in range(16)]
+        current_V[-1] += (i+1)
+        decrypted += state
     
-    return cipher        
+    return decrypted        

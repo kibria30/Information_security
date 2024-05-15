@@ -42,6 +42,12 @@ def decrypt(cipher, roundKeys):
     cnt = 0
     loop =  len(cipher)//16
     blocksOfText = [[None]*16 for _ in range(loop)]
+
+    file_iv = open("IV.txt", 'r')
+    IV = file_iv.read()
+    file_iv.close()
+    current_V = [ord(ch)  for ch in IV]
+
     for i in range(loop):
         if cnt == len(cipher):
             break
@@ -55,6 +61,10 @@ def decrypt(cipher, roundKeys):
     state = []
     for i in range(len(blocksOfText)):
         state = blocksOfText[i]
+
+        state = [state[i]^current_V[i] for i in range(16)]
+        current_V = state
+
         #initial round
         state = addRoundKey(state, roundKeys[10])
         
