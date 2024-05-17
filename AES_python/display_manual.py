@@ -14,6 +14,27 @@ def display_manual():
         |### Attention!!! You need to enter original 16 bytes key in        |
         |    "original_key.txt" before running main.py                      |
         |                                                                   |
+        |                                                                   |
+        |                                                                   |
+        |main ->                                                            |
+        |       Key expansion()->                                           |
+        |                        1. gfunction()->                           |
+        |                               > SUBBYTE()                         |
+        |                               > SHIFT()                           |
+        |                                                                   |
+        |       AES encryption()->                                          |
+        |                        1. addroundkey()                           |
+        |                        2. subBytes()                              |
+        |                        3. shiftRows()                             |
+        |                        4. mixColumns()                            |
+        |                                                                   |
+        |        AES decryption()->                                         |
+        |                        1. addroundkey()                           |
+        |                        2. inv_subBytes()                          |
+        |                        3. inv_shiftRows()                         |
+        |                        4. inv_mixColumns()                        |
+        |                                                                   |
+        |                                                                   |
         ---------------------------------------------------------------------'''
         
     print(manual)
